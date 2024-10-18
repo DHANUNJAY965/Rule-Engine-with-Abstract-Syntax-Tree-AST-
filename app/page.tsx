@@ -9,7 +9,7 @@ import { Toaster } from 'react-hot-toast';
 
 export default function Home() {
   const [refreshTrigger, setRefreshTrigger] = useState(0);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
 
   const handleRuleCreated = () => {
     setRefreshTrigger(prev => prev + 1);

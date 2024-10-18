@@ -1,0 +1,82 @@
+{
+  "testCases": [
+    {
+      "name": "Rule 1: Age and Salary Check",
+      "rule": "(age >= 30 OR age < 20) AND salary < 60000",
+      "testData": { "age": 35, "salary": 50000 },
+      "expectedResult": true
+    },
+    {
+      "name": "Rule 2: Combined Experience Check",
+      "rule": "experience > 5 AND (age < 40 OR salary > 80000)",
+      "testData": { "age": 38, "salary": 85000, "experience": 6 },
+      "expectedResult": true
+    },
+    {
+      "name": "Rule 3: Nested Conditions",
+      "rule": "(age >= 30 AND salary < 60000) OR (experience > 5 AND department = 'Sales')",
+      "testData": { "age": 29, "salary": 50000, "experience": 6, "department": "Sales" },
+      "expectedResult": true
+    },
+    {
+      "name": "Rule 4: Multiple Fail Conditions",
+      "rule": "(age >= 30 AND salary < 60000) OR (experience > 5 AND department = 'Sales')",
+      "testData": { "age": 29, "salary": 70000, "experience": 4, "department": "Marketing" },
+      "expectedResult": false
+    },
+    {
+      "name": "Rule 5: Salary and Department Check",
+      "rule": "(salary >= 60000 AND department = 'Engineering') OR (salary < 40000 AND department = 'HR')",
+      "testData": { "salary": 70000, "department": "Engineering" },
+      "expectedResult": true
+    },
+    {
+      "name": "Rule 6: Combination with Range",
+      "rule": "age >= 25 AND age <= 35 AND salary > 50000",
+      "testData": { "age": 30, "salary": 55000 },
+      "expectedResult": true
+    },
+    {
+      "name": "Rule 7: Complex AND/OR Check",
+      "rule": "(age >= 30 AND salary < 60000) OR (experience >= 2 AND department = 'Sales')",
+      "testData": { "age": 28, "salary": 55000, "experience": 3, "department": "Sales" },
+      "expectedResult": true
+    },
+    {
+      "name": "Combined Test Case: Rule 1 and Rule 6 Combined",
+      "rule": "((age >= 30 OR age < 20) AND salary < 60000) AND (age >= 25 AND age <= 35 AND salary > 50000)",
+      "testData": { "age": 30, "salary": 55000 },
+      "expectedResult": true
+    },
+    {
+      "name": "Combined Test Case: Rule 2 and Rule 4 Combined",
+      "rule": "((experience > 5 AND (age < 40 OR salary > 80000)) OR ((age >= 30 AND salary < 60000) OR (experience > 5 AND department = 'Sales')))",
+      "testData": { "age": 38, "salary": 50000, "experience": 6, "department": "Sales" },
+      "expectedResult": true
+    },
+    {
+      "name": "Combined Test Case: Rule 3 and Rule 5 Combined",
+      "rule": "((age >= 30 AND salary < 60000) OR (experience > 5 AND department = 'Sales')) AND (salary >= 60000 AND department = 'Engineering')",
+      "testData": { "age": 29, "salary": 70000, "experience": 6, "department": "Sales" },
+      "expectedResult": true
+    },
+    {
+      "name": "Combined Test Case: Rule 4 and Rule 7 Combined",
+      "rule": "((age >= 30 AND salary < 60000) OR (experience > 5 AND department = 'Sales')) AND (age >= 30 AND salary < 60000)",
+      "testData": { "age": 35, "salary": 50000, "experience": 6, "department": "Sales" },
+      "expectedResult": true
+    },
+    {
+      "name": "Combined Test Case: Rule 1 and Rule 4 Combined",
+      "rule": "((age >= 30 OR age < 20) AND salary < 60000) OR ((age >= 30 AND salary < 60000) OR (experience > 5 AND department = 'Sales'))",
+      "testData": { "age": 25, "salary": 50000, "experience": 6, "department": "Sales" },
+      "expectedResult": true
+    },
+    {
+      "name": "Combined Test Case: Rule 6 and Rule 3 Combined",
+      "rule": "((age >= 25 AND age <= 35 AND salary > 50000) OR (age >= 30 AND salary < 60000) OR (experience > 5 AND department = 'Sales'))",
+      "testData": { "age": 30, "salary": 70000, "experience": 6, "department": "Sales" },
+      "expectedResult": true
+    }
+  ]
+}

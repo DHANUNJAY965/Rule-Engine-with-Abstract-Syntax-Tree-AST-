@@ -1,8 +1,9 @@
 import clientPromise from '@/lib/mongodb';
 import { evaluateRule } from '@/lib/ruleEngine';
 import { ObjectId } from 'mongodb';
+import { NextRequest } from 'next/server';
 
-export async function POST(req) {
+export async function POST(req:NextRequest) {
   try {
     const { ruleId, data } = await req.json();
     console.log("Received ruleId:", ruleId);
@@ -15,7 +16,7 @@ export async function POST(req) {
     try {
       objectId = new ObjectId(ruleId);
     } catch (error) {
-      console.log('Invalid ObjectId format');
+      console.log('Invalid ObjectId format : ',error);
       return new Response(JSON.stringify({ success: false, error: 'Invalid rule ID format' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' },

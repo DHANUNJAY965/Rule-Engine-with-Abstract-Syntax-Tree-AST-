@@ -1,8 +1,21 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
+// import { ObjectId } from 'mongodb';
+
+interface Node {
+  type: 'operator' | 'operand';
+  value: string;
+  left?: Node;
+  right?: Node;
+}
+
+interface Rule {
+  _id: string; // Changed from ObjectId to string since client-side will receive string
+  name: string;
+  ast: Node;
+}
 
 interface RuleCombinerProps {
   refreshTrigger: number;
@@ -10,8 +23,8 @@ interface RuleCombinerProps {
 }
 
 export default function RuleCombiner({ refreshTrigger, darkMode }: RuleCombinerProps) {
-  const [rules, setRules] = useState([]);
-  const [selectedRules, setSelectedRules] = useState([]);
+  const [rules, setRules] = useState<Rule[]>([]); // Properly typed state
+  const [selectedRules, setSelectedRules] = useState<string[]>([]); // Using string for IDs
 
   const fetchRules = async () => {
     try {

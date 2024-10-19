@@ -64,6 +64,7 @@ export default function RuleCreator({ onRuleCreated, darkMode }: RuleCreatorProp
         toast.error('Error creating rule: ' + data.message);
       }
     } catch (error) {
+      console.log("the error occurred : ", error);
       toast.error('Error creating rule. Please try again later.');
     }
   };

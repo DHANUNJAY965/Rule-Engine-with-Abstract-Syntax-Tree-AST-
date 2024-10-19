@@ -1,7 +1,9 @@
 import clientPromise from '@/lib/mongodb';
 import { createRule } from '@/lib/ruleEngine';
+import { NextRequest } from 'next/server';
 
-export async function POST(req) {
+
+export async function POST(req:NextRequest) {
   try {
     const { name, ruleString } = await req.json(); // Parse the JSON body from the request
     const ast = createRule(ruleString);

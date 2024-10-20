@@ -60,6 +60,9 @@ export default function RuleCreator({ onRuleCreated, darkMode }: RuleCreatorProp
         setName('');
         setRuleString('');
         onRuleCreated();
+        setTimeout(() =>{
+          window.location.reload();
+        },1500)
       } else {
         toast.error('Error creating rule: ' + data.message);
       }

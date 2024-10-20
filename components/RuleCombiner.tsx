@@ -1,45 +1,21 @@
-"use client"
+'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
-// import { ObjectId } from 'mongodb';
-
-interface Node {
-  type: 'operator' | 'operand';
-  value: string;
-  left?: Node;
-  right?: Node;
-}
 
 interface Rule {
-  _id: string; // Changed from ObjectId to string since client-side will receive string
+  _id: string;
   name: string;
-  ast: Node;
 }
 
 interface RuleCombinerProps {
-  refreshTrigger: number;
+  rules: Rule[];
+  onRulesCombined: () => void;
   darkMode: boolean;
 }
 
-export default function RuleCombiner({ refreshTrigger, darkMode }: RuleCombinerProps) {
-  const [rules, setRules] = useState<Rule[]>([]); // Properly typed state
-  const [selectedRules, setSelectedRules] = useState<string[]>([]); // Using string for IDs
-
-  const fetchRules = async () => {
-    try {
-      const response = await fetch('/api/getRules');
-      const data = await response.json();
-      if (data.success) {
-        setRules(data.rules);
-      } else {
-        toast.error('Failed to fetch rules. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error fetching rules:', error);
-      toast.error('An error occurred while fetching rules. Please try again later.');
-    }
-  };
+export default function RuleCombiner({ rules, onRulesCombined, darkMode }: RuleCombinerProps) {
+  const [selectedRules, setSelectedRules] = useState<string[]>([]);
 
   const handleCombineRules = async () => {
     if (selectedRules.length < 2) {
@@ -57,6 +33,7 @@ export default function RuleCombiner({ refreshTrigger, darkMode }: RuleCombinerP
       if (data.success) {
         toast.success('Rules combined successfully!');
         setSelectedRules([]);
+        onRulesCombined();
       } else {
         toast.error('Error combining rules: ' + (data.message || 'Please try again.'));
       }
@@ -65,10 +42,6 @@ export default function RuleCombiner({ refreshTrigger, darkMode }: RuleCombinerP
       toast.error('An error occurred while combining rules. Please try again later.');
     }
   };
-
-  useEffect(() => {
-    fetchRules();
-  }, [refreshTrigger]);
 
   const baseClasses = `transition-colors duration-200 ${
     darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-900'

@@ -61,7 +61,10 @@ export default function RuleEvaluator({ rules, darkMode }: RuleEvaluatorProps) {
     <div className={`${baseClasses} shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4`}>
       <h2 className="text-2xl font-bold mb-6">Evaluate Rule</h2>
       <div className="mb-6">
-        <label className="block text-sm font-medium mb-2" htmlFor="ruleSelect">
+        <label className="block text-sm font-medium mb-2" htmlFor="ruleSelect"
+        onClick={()=>{setTimeout(() =>{
+          window.location.reload();
+        },1500)}}>
           Select Rule
         </label>
         <select

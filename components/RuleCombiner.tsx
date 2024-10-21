@@ -34,6 +34,9 @@ export default function RuleCombiner({ rules, onRulesCombined, darkMode }: RuleC
         toast.success('Rules combined successfully!');
         setSelectedRules([]);
         onRulesCombined();
+        setTimeout(() =>{
+          window.location.reload();
+        },1500)
       } else {
         toast.error('Error combining rules: ' + (data.message || 'Please try again.'));
       }
